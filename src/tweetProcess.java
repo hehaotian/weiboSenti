@@ -8,6 +8,7 @@ public class tweetProcess {
     	File folder = new File(root);
     	File[] listOfFiles = folder.listFiles();
     	PrintStream tweet = new PrintStream("tweets");
+    	ArrayList<String> tweetList = new ArrayList<String>();
 
     	for (File file : listOfFiles) {
     		if (file.isFile()) {
@@ -17,6 +18,7 @@ public class tweetProcess {
     				String line = "";
     				while ((line = br.readLine()) != null) {
     					tweet.println(line);
+    					tweetList.add(line);
     				}
     				br.close();
     			}
