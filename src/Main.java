@@ -10,6 +10,7 @@ public class Main {
     	File folder = new File(root);
     	File[] listOfFiles = folder.listFiles();
     	ArrayList<String> tweetList = new ArrayList<String>();
+        PrintStream ps = new PrintStream("tweetList");
 
     	for (File file : listOfFiles) {
     		if (file.isFile()) {
@@ -19,7 +20,9 @@ public class Main {
     				String line = "";
     				while ((line = br.readLine()) != null) {
     					Tweet t = new Tweet(line);
-    					tweetList.add(t.getContent());
+                        String content = t.getContent();
+    					tweetList.add(content);
+                        ps.println(content);
     				}
     				br.close();
     			}
