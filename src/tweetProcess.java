@@ -4,13 +4,22 @@ import java.util.*;
 
 public class tweetProcess {
     public static void main(String[] args) throws IOException {
-    	File folder = new File("Data/619763/");
+    	String root = "Data/619763/";
+    	File folder = new File(root);
     	File[] listOfFiles = folder.listFiles();
     	PrintStream tweet = new PrintStream("tweets");
 
     	for (File file : listOfFiles) {
     		if (file.isFile()) {
-    			tweet.println(file.getName());
+    			String fileName = file.getName();
+    			if (fileName.contains(".json")) {
+    				BufferedReader br = new BufferedReader(new FileReader(root + fileName));
+    				String line = "";
+    				while ((line = br.readLine()) != null) {
+    					tweet.println(line);
+    				}
+    				br.close();
+    			}
     		}
     	}
     }
