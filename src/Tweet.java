@@ -10,6 +10,7 @@ public class Tweet {
     public Tweet(String line) {
         this.originalQuery = line;
         content = line.replaceAll("(.*content\":\")(.*)(\",\"createTime.*)", "$2");
+        content = content.replaceAll("(http://)([A-Za-z/.1-9]+)", "");
     }
 
     public String getContent() {
