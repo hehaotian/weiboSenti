@@ -1,18 +1,16 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class tweetProcess {
     public static void main(String[] args) throws IOException {
-    	File folder = new File("/Data/619763/");
+    	File folder = new File("Data/619763/");
     	File[] listOfFiles = folder.listFiles();
+    	PrintStream tweet = new PrintStream("tweets");
 
     	for (File file : listOfFiles) {
     		if (file.isFile()) {
-    			System.out.println(file.getName());
+    			tweet.println(file.getName());
     		}
     	}
     }
