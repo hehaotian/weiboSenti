@@ -10,7 +10,7 @@ public class Main {
     	File folder = new File(root);
     	File[] listOfFiles = folder.listFiles();
     	ArrayList<String> tweetList = new ArrayList<String>();
-        PrintStream ps = new PrintStream("tweetList");
+        PrintStream ps = new PrintStream("tweet.chn.utf8");
 
     	for (File file : listOfFiles) {
     		if (file.isFile()) {
