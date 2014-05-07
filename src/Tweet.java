@@ -15,7 +15,7 @@ public class Tweet {
         content = content.replaceAll("[【】：]+", " ");
         content = content.replaceAll("[#]+", " ");
         content = content.replaceAll("[。，！？]+", "。");
-        content = content.replaceAll("&quot;", "");
+        content = content.replaceAll("&quot; | &amp; | bull;", "");
         content = content.replaceAll("[~]+", "。");
         content = content.replaceAll("[\\s]+", " ");
     }
