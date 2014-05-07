@@ -33,9 +33,10 @@ public class Main {
     		}
     	}
         System.out.println("Totally tweets: " + count);
-
-        PrintStream train = new PrintStream("train.chn.utf8");
-        PrintStream test = new PrintStream("test.chn.utf8");
+        String trainPath = args[0];
+        String testPath = args[1];
+        PrintStream train = new PrintStream(trainPath);
+        PrintStream test = new PrintStream(testPath);
         int limit = count / 5 * 4;
         System.out.println("Training tweets: " + limit);
         System.out.println("Testing tweets: " + (count - limit));

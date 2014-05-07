@@ -11,12 +11,12 @@ public class Tweet {
         this.originalQuery = line;
         content = line.replaceAll("(.*content\":\")(.*)(\",\"createTime.*)", "$2");
         content = content.replaceAll("(http://)([A-Za-z/.1-9]+)", "");
-        content = content.replaceAll("[/@]+", "");
-        content = content.replaceAll("[【】]+", " ");
+        content = content.replaceAll("[/@“]+", "");
+        content = content.replaceAll("[【】：]+", " ");
         content = content.replaceAll("[#]+", " ");
-        content = content.replaceAll("[\\s]+", " ");
-        content = content.replaceAll("[。]+", "。");
+        content = content.replaceAll("[。，！？]+", "。");
         content = content.replaceAll("[~]+", "。");
+        content = content.replaceAll("[\\s]+", " ");
     }
 
     public String getContent() {
