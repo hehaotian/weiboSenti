@@ -9,8 +9,9 @@ public class Main {
     	String root = "Data/619763/";
     	File folder = new File(root);
     	File[] listOfFiles = folder.listFiles();
-    	ArrayList<String> tweetList = new ArrayList<String>();
+    	List<String> tweetList = new ArrayList<String>();
         PrintStream ps = new PrintStream("tweet.chn.utf8");
+        int count = 0;
 
     	for (File file : listOfFiles) {
     		if (file.isFile()) {
@@ -21,12 +22,33 @@ public class Main {
     				while ((line = br.readLine()) != null) {
     					Tweet t = new Tweet(line);
                         String content = t.getContent();
-    					tweetList.add(content);
-                        ps.println(content);
+                        if (!tweetList.contains(content)) {
+                            count ++;
+                            tweetList.add(content);
+                            ps.println(content);
+                        }
     				}
     				br.close();
     			}
     		}
     	}
+        System.out.println("Totally tweets: " + count);
+
+        PrintStream train = new PrintStream("train.chn.utf8");
+        PrintStream test = new PrintStream("test.chn.utf8");
+        int limit = count / 5 * 4;
+        System.out.println("Training tweets: " + limit);
+        System.out.println("Testing tweets: " + (count - limit));
+        int trainCount = 0;
+        BufferedReader br = new BufferedReader(new FileReader("tweet.chn.utf8"));
+        String line = "";
+        while ((line = br.readLine()) != null) {
+            trainCount ++;
+            if (trainCount <= limit) {
+                train.println(line);
+            } else {
+                test.println(line);
+            }
+        }
     }
 }
