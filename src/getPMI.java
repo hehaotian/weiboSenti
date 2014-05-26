@@ -43,8 +43,10 @@ public class getPMI {
         }
 
         BufferedReader trainFile = new BufferedReader(new FileReader("dataset/train25.seg"));
-        BufferedReader posList = new BufferedReader(new FileReader("dataset/polarityList/top50Positive.txt"));
-        BufferedReader negList = new BufferedReader(new FileReader("dataset/polarityList/top50Negative.txt"));
+        BufferedReader posList = new BufferedReader(new FileReader("dataset/polarityList/pos.txt"));
+        BufferedReader negList = new BufferedReader(new FileReader("dataset/polarityList/neg.txt"));
+
+        PrintStream res = new PrintStream("dataset/rough_percent_res.txt");
 
         List<String> posWordList = new ArrayList<String>();
         List<String> negWordList = new ArrayList<String>();
@@ -65,11 +67,20 @@ public class getPMI {
         String trainLine = "";
         while ((trainLine = trainFile.readLine()) != null) {
             String[] tokens = trainLine.split(" ");
+            // double pmi_sent = 0.0;
             Map<String, Integer> posWordMatch = getWordMatch(posWordList, tokens);
             Map<String, Integer> negWordMatch = getWordMatch(negWordList, tokens);
-            for (int i = 0; i < tokens.length; i ++) {
-                double so_pmi_ir = 0.0;
+            // for (int i = 0; i < tokens.length; i ++) {
+            //    double so_pmi_ir = 0.0;
+            // }
+            double perc = posWordMatch.size() * 1.0 / negWordMatch.size();
+            String label = "";
+            if (perc > 1.0) {
+                label = "POS";
+            } else {
+                label = "NEG";
             }
+            res.println(perc + " " + label + " " + trainLine);
         }
     }
 
@@ -77,7 +88,8 @@ public class getPMI {
         Map<String, Integer> tally = new HashMap<String, Integer>();
         for (int i = 0; i < tokens.length; i ++) {
             for (int j = 0; j < wordlist.size(); j ++) {
-                if (tokens[i] == wordlist.get(j)) {
+                String word_in_list = wordlist.get(j).replaceAll("[\\s]", "");
+                if (tokens[i] == word_in_list) {
                     if (!tally.containsKey(tokens[i])) {
                         tally.put(tokens[i], 1);
                     } else {

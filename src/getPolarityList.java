@@ -5,7 +5,7 @@ import java.util.*;
 public class getPolarityList {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("dataset/pl.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("dataset/polarityList/pl.txt"));
         Map<String, Double> positiveList = new HashMap<String, Double>();
         Map<String, Double> negativeList = new HashMap<String, Double>();
 
@@ -40,6 +40,8 @@ public class getPolarityList {
         getTopNegative(negativeList, 5000);
         getTopPositive(positiveList, 50);
         getTopNegative(negativeList, 50);
+        getTopPositive(positiveList, 15000);
+        getTopNegative(negativeList, 15000);
     }
 
     public static void getTopPositive(Map<String, Double> list, int topNum) throws IOException {
@@ -68,7 +70,7 @@ public class getPolarityList {
 
     public static void getTopNegative(Map<String, Double> list, int topNum) throws IOException {
         
-        PrintStream top = new PrintStream("dataset/top" + topNum + "Negative.txt");
+        PrintStream top = new PrintStream("dataset/polarityList/top" + topNum + "Negative.txt");
 
         List<Map.Entry<String, Double>> entryList = new ArrayList<Map.Entry<String, Double>>();
         entryList.addAll(list.entrySet());

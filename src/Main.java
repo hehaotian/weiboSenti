@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
     	
-    	String root = "Data/619763/";
+    	String root = "dataset/2800/";
     	File folder = new File(root);
     	File[] listOfFiles = folder.listFiles();
     	List<String> tweetList = new ArrayList<String>();
