@@ -86,10 +86,12 @@ public class getPMI {
 
     public static Map<String, Integer> getWordMatch(List<String> wordlist, String[] tokens) {
         Map<String, Integer> tally = new HashMap<String, Integer>();
+        // System.out.println(wordlist.size());
         for (int i = 0; i < tokens.length; i ++) {
             for (int j = 0; j < wordlist.size(); j ++) {
                 String word_in_list = wordlist.get(j).replaceAll("[\\s]", "");
-                if (tokens[i] == word_in_list) {
+                if (tokens[i].equals(word_in_list)) {
+                    System.out.println(tokens[i] + "\t" + word_in_list);
                     if (!tally.containsKey(tokens[i])) {
                         tally.put(tokens[i], 1);
                     } else {
