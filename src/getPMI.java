@@ -43,8 +43,8 @@ public class getPMI {
         }
 
         BufferedReader trainFile = new BufferedReader(new FileReader("dataset/train25.seg"));
-        BufferedReader posList = new BufferedReader(new FileReader("dataset/polarityList/pos.txt"));
-        BufferedReader negList = new BufferedReader(new FileReader("dataset/polarityList/neg.txt"));
+        BufferedReader posList = new BufferedReader(new FileReader("dataset/polarityList/pos.seg"));
+        BufferedReader negList = new BufferedReader(new FileReader("dataset/polarityList/neg.seg"));
 
         PrintStream res = new PrintStream("dataset/rough_percent_res.txt");
 
@@ -66,13 +66,8 @@ public class getPMI {
 
         String trainLine = "";
         while ((trainLine = trainFile.readLine()) != null) {
-            String[] tokens = trainLine.split(" ");
-            // double pmi_sent = 0.0;
-            Map<String, Integer> posWordMatch = getWordMatch(posWordList, tokens);
-            Map<String, Integer> negWordMatch = getWordMatch(negWordList, tokens);
-            // for (int i = 0; i < tokens.length; i ++) {
-            //    double so_pmi_ir = 0.0;
-            // }
+            Map<String, Integer> posWordMatch = getWordMatch(posWordList, trainLine);
+            Map<String, Integer> negWordMatch = getWordMatch(negWordList, trainLine);
             double perc = posWordMatch.size() * 1.0 / negWordMatch.size();
             String label = "";
             if (perc > 1.0) {
@@ -84,19 +79,14 @@ public class getPMI {
         }
     }
 
-    public static Map<String, Integer> getWordMatch(List<String> wordlist, String[] tokens) {
-        Map<String, Integer> tally = new HashMap<String, Integer>();
-        // System.out.println(wordlist.size());
-        for (int i = 0; i < tokens.length; i ++) {
-            for (int j = 0; j < wordlist.size(); j ++) {
-                String word_in_list = wordlist.get(j).replaceAll("[\\s]", "");
-                if (tokens[i].equals(word_in_list)) {
-                    System.out.println(tokens[i] + "\t" + word_in_list);
-                    if (!tally.containsKey(tokens[i])) {
-                        tally.put(tokens[i], 1);
-                    } else {
-                        tally.put(tokens[i], tally.get(tokens[i]) + 1);
-                    }
+    public static Map<String, Integer> getWordMatch(List<String> wordlist, String trainLine) {
+        Map<String, Integer> tally = new HashMap<String, Integer>();        
+        for (int j = 0; j < wordlist.size(); j ++) {
+            if (trainLine.contains(wordlist.get(j))) {
+                if (!tally.containsKey(wordlist.get(j))) {
+                    tally.put(wordlist.get(j), 1);
+                } else {
+                    tally.put(wordlist.get(j), tally.get(wordlist.get(j)) + 1);
                 }
             }
         }
