@@ -5,7 +5,7 @@ import java.util.*;
 public class getPolarityList {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("dataset/polarityList/pl.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("dataset/yuanbo/pl.txt"));
         Map<String, Double> positiveList = new HashMap<String, Double>();
         Map<String, Double> negativeList = new HashMap<String, Double>();
 
@@ -26,22 +26,10 @@ public class getPolarityList {
         }
         br.close();
 
-        getTopPositive(positiveList, 100);
-        getTopNegative(negativeList, 100);
-        getTopPositive(positiveList, 300);
-        getTopNegative(negativeList, 300);
-        getTopPositive(positiveList, 500);
-        getTopNegative(negativeList, 500);
-        getTopPositive(positiveList, 1000);
-        getTopNegative(negativeList, 1000);
         getTopPositive(positiveList, 3000);
         getTopNegative(negativeList, 3000);
         getTopPositive(positiveList, 5000);
         getTopNegative(negativeList, 5000);
-        getTopPositive(positiveList, 50);
-        getTopNegative(negativeList, 50);
-        getTopPositive(positiveList, 15000);
-        getTopNegative(negativeList, 15000);
     }
 
     public static void getTopPositive(Map<String, Double> list, int topNum) throws IOException {
@@ -70,7 +58,7 @@ public class getPolarityList {
 
     public static void getTopNegative(Map<String, Double> list, int topNum) throws IOException {
         
-        PrintStream top = new PrintStream("dataset/polarityList/top" + topNum + "Negative.txt");
+        PrintStream top = new PrintStream("dataset/yuanbo/top" + topNum + "Negative.txt");
 
         List<Map.Entry<String, Double>> entryList = new ArrayList<Map.Entry<String, Double>>();
         entryList.addAll(list.entrySet());
