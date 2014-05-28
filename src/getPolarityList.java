@@ -46,7 +46,7 @@ public class getPolarityList {
 
     public static void getTopPositive(Map<String, Double> list, int topNum) throws IOException {
         
-        PrintStream top = new PrintStream("dataset/top" + topNum + "Positive.txt");
+        PrintStream top = new PrintStream("dataset/yuanbo/top" + topNum + "Positive.txt");
 
         List<Map.Entry<String, Double>> entryList = new ArrayList<Map.Entry<String, Double>>();
         entryList.addAll(list.entrySet());
