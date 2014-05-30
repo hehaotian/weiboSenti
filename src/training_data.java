@@ -2,22 +2,19 @@ import java.io.*;
 import java.util.*;
 
 
-public class start_training_data {
+public class training_data {
 
     private static List<String> negList = new ArrayList<String>();
     private static List<String> posList = new ArrayList<String>();
 
     public static void main(String[] args) throws IOException {
 
-        BufferedReader labFile = new BufferedReader(new FileReader("dataset/start_training/previous/start_tweet_clean"));
-        BufferedReader segFile = new BufferedReader(new FileReader("dataset/start_training/previous/no_label_tweet.seg"));
+        BufferedReader testFile = new BufferedReader(new FileReader("dataset/training/" + args[0]));
         BufferedReader posFile = new BufferedReader(new FileReader("dataset/polarity/pos.seg"));
         BufferedReader negFile = new BufferedReader(new FileReader("dataset/polarity/neg.seg"));
 
-        PrintStream ps1 = new PrintStream("dataset/start_training/train.v1.vectors.txt");
-        PrintStream ps2 = new PrintStream("dataset/start_training/train.v2.vectors.txt");
-
-        List<String> segTweets = new ArrayList<String>();
+        PrintStream ps1 = new PrintStream("dataset/start_training/" + args[0] + ".v1.txt");
+        PrintStream ps2 = new PrintStream("dataset/start_training/" + args[0] + ".v2.txt");
         
         String posLine = "";
         while ((posLine = posFile.readLine()) != null) {
@@ -31,25 +28,16 @@ public class start_training_data {
         }
         negFile.close();
 
-        String segLine = "";
-        while ((segLine = segFile.readLine()) != null) {
-            segTweets.add(segLine);
-        }
-        segFile.close();
-        
-        String labLine = "";
-        int count = 0;
-        while ((labLine = labFile.readLine()) != null) {
-        	String[] arguments = labLine.split("\t");
-        	String label = arguments[1];
-        	String content = segTweets.get(count);
-        	String featureCount1 = ngramGenerator(content) + polarityList(content) + emojiGenerator(content);
-            String featureCount2 = trigramGenerator(content) + polarityList(content) + emojiGenerator(content);
-        	ps1.println(count + " " + label + " " + featureCount1);
-            ps2.println(count + " " + label + " " + featureCount2);
+        String testLine = "";
+        int count = 481;
+        while ((testLine = testFile.readLine()) != null) {
+        	String featureCount1 = ngramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);
+        	String featureCount2 = trigramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);
+            ps1.println(count + " " + featureCount1);
+            ps2.println(count + " " + featureCount2);
         	count ++;
         }
-        labFile.close();
+        testFile.close();
     }
 
     // adds unigram, bigram, and trigram features to the instances
@@ -156,4 +144,5 @@ public class start_training_data {
         }
         return emojiCount;
     }
+
 }

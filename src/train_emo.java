@@ -2,11 +2,11 @@ import java.io.*;
 import java.util.*;
 
 
-public class Start {
+public class train_emo {
 
     public static void main(String[] args) throws IOException {
 
-        BufferedReader startFile = new BufferedReader(new FileReader("dataset/start_training/previous/start_t.txt"));
+        BufferedReader startFile = new BufferedReader(new FileReader("dataset/training/test3.unseg"));
         BufferedReader emojiFile = new BufferedReader(new FileReader("dataset/emoji.txt"));
 
         Map<String, String> emoji = new HashMap<String, String>();
@@ -20,32 +20,20 @@ public class Start {
                 pol = "POS";
             } else if (arguments[3].equals("负面")) {
                 pol = "NEG";
-            } else {
-                continue;
+            } else if (arguments[3].equals("中性")) {
+                pol = "NEU";
             }
             emoji.put(emo, pol);
         }
         emojiFile.close();
 
-        PrintStream ps1 = new PrintStream("dataset/start_training/start_tweet_clean");
-        PrintStream ps2 = new PrintStream("dataset/start_training/no_label_tweet");
+        PrintStream ps = new PrintStream("dataset/training/emoed_test3_unseg");
 
-        String label = "";
         String content = "";
-        String line = "";
 
         int count = 0;
 
-        while ((line = startFile.readLine()) != null) {
-            String[] arguments = line.split("\t");
-            if (arguments[0].equals("s")) {
-                continue;
-            } else if (arguments[0].equals("a")) {
-                label = "POS";
-            } else if (arguments[0].equals("d")) {
-                label = "NEG";
-            }
-            content = arguments[1];
+        while ((content = startFile.readLine()) != null) {
             content = content.replaceAll("(http://)([A-Za-z/.1-9]+)", "");
             content = content.replaceAll("[/@“]+", "");
             content = content.replaceAll("[【】：]+", " ");
@@ -67,9 +55,8 @@ public class Start {
                 }
             }
             
-            if (line != null) {
-                ps1.println(count + "\t" + label + "\t" + content);
-                ps2.println(content);
+            if (content != null) {
+                ps.println(content);
                 count ++;
             }
         }
