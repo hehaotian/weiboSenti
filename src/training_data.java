@@ -29,7 +29,7 @@ public class training_data {
         negFile.close();
 
         String testLine = "";
-        int count = 1441;
+        int count = 1961;
         while ((testLine = testFile.readLine()) != null) {
         	String featureCount1 = ngramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);
         	String featureCount2 = trigramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);

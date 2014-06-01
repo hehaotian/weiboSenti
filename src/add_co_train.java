@@ -6,9 +6,9 @@ public class add_co_train {
 
     public static void main(String[] args) throws IOException {
 
-        BufferedReader test1File = new BufferedReader(new FileReader("dataset/kloop/k10/test.v1.txt"));
-        BufferedReader test2File = new BufferedReader(new FileReader("dataset/kloop/k10/test.v2.txt"));
-        BufferedReader editFile = new BufferedReader(new FileReader("dataset/kloop/k10/k10.ma.res"));
+        BufferedReader test1File = new BufferedReader(new FileReader("dataset/kloop/k12/test.v1.txt"));
+        BufferedReader test2File = new BufferedReader(new FileReader("dataset/kloop/k12/test.v2.txt"));
+        BufferedReader editFile = new BufferedReader(new FileReader("dataset/kloop/k12/k12.ma.res"));
 
         PrintStream ps1 = new PrintStream("dataset/kloop/test.v1.toadd.txt");
         PrintStream ps2 = new PrintStream("dataset/kloop/test.v2.toadd.txt");
