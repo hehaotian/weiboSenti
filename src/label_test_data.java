@@ -2,19 +2,19 @@ import java.io.*;
 import java.util.*;
 
 
-public class training_data {
+public class label_test_data {
 
     private static List<String> negList = new ArrayList<String>();
     private static List<String> posList = new ArrayList<String>();
 
     public static void main(String[] args) throws IOException {
 
-        BufferedReader testFile = new BufferedReader(new FileReader("dataset/training/unlabel_test"));
+        BufferedReader testFile = new BufferedReader(new FileReader("dataset/training/label_test"));
         BufferedReader posFile = new BufferedReader(new FileReader("dataset/polarity/pos.seg"));
         BufferedReader negFile = new BufferedReader(new FileReader("dataset/polarity/neg.seg"));
 
-        PrintStream ps1 = new PrintStream("ml/" + args[1] + "/files/unlabel_test.v1.txt");
-        PrintStream ps2 = new PrintStream("ml/" + args[1] + "/files/unlabel_test.v2.txt");
+        PrintStream ps1 = new PrintStream("ml/" + args[1] + "/files/label_test.v1.txt");
+        PrintStream ps2 = new PrintStream("ml/" + args[1] + "/files/label_test.v2.txt");
         
         String posLine = "";
         while ((posLine = posFile.readLine()) != null) {
@@ -31,10 +31,11 @@ public class training_data {
         String testLine = "";
         int count = Integer.parseInt(args[0]);
         while ((testLine = testFile.readLine()) != null) {
+            String label = testLine.split(" ")[0];
         	String featureCount1 = ngramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);
         	String featureCount2 = trigramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);
-            ps1.println(count + " " + featureCount1);
-            ps2.println(count + " " + featureCount2);
+            ps1.println(count + " " + label + " " + featureCount1);
+            ps2.println(count + " " + label + " " + featureCount2);
         	count ++;
         }
         testFile.close();
@@ -48,7 +49,7 @@ public class training_data {
         String[] tokens = query.split(" ");
         Map<String, Integer> featureTally = new HashMap<String, Integer>();
 
-        for (int i = 0; i < tokens.length; i ++) {
+        for (int i = 1; i < tokens.length; i ++) {
             if (!featureTally.containsKey(tokens[i])) {
                 featureTally.put(tokens[i], 1);
             } else {
@@ -77,7 +78,7 @@ public class training_data {
         String[] tokens = query.split(" ");
         Map<String, Integer> featureTally = new HashMap<String, Integer>();
 
-        for (int i = 0; i < tokens.length; i ++) {
+        for (int i = 1; i < tokens.length; i ++) {
             if (i < tokens.length - 2) {
                if (!featureTally.containsKey(tokens[i] + "_" + tokens[i + 1] + "_" + tokens[i + 2])) {
                    featureTally.put(tokens[i] + "_" + tokens[i + 1] + "_" + tokens[i + 2], 1);
@@ -130,7 +131,7 @@ public class training_data {
         String emojiCount = "";
         String[] tokens = query.split(" ");
         Map<String, Integer> featureTally = new HashMap<String, Integer>();
-        for (int i = 0; i < tokens.length; i ++) {
+        for (int i = 1; i < tokens.length; i ++) {
             if (tokens[i].equals("POS_EMO") || tokens[i].equals("NEG_EMO")) {
                 if (!featureTally.containsKey(tokens[i])) {
                     featureTally.put(tokens[i], 1);

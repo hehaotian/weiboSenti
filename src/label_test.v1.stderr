@@ -1,0 +1,8 @@
+java.io.FileNotFoundException: train.v1.vectors (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at cc.mallet.types.InstanceList.load(InstanceList.java:787)
+	at cc.mallet.classify.tui.Vectors2Classify.main(Vectors2Classify.java:262)
+Exception in thread "main" java.lang.IllegalArgumentException: Couldn't read InstanceList from file train.v1.vectors
+	at cc.mallet.types.InstanceList.load(InstanceList.java:794)
+	at cc.mallet.classify.tui.Vectors2Classify.main(Vectors2Classify.java:262)
