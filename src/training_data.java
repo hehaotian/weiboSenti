@@ -13,8 +13,7 @@ public class training_data {
         BufferedReader posFile = new BufferedReader(new FileReader("dataset/polarity/pos.seg"));
         BufferedReader negFile = new BufferedReader(new FileReader("dataset/polarity/neg.seg"));
 
-        PrintStream ps1 = new PrintStream("ml/" + args[1] + "/files/unlabel_test.v1.txt");
-        PrintStream ps2 = new PrintStream("ml/" + args[1] + "/files/unlabel_test.v2.txt");
+        PrintStream ps1 = new PrintStream("ml/" + args[0] + "/files/unlabel_test.txt");
         
         String posLine = "";
         while ((posLine = posFile.readLine()) != null) {
@@ -29,12 +28,10 @@ public class training_data {
         negFile.close();
 
         String testLine = "";
-        int count = Integer.parseInt(args[0]);
+        int count = 65001;
         while ((testLine = testFile.readLine()) != null) {
-        	String featureCount1 = ngramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);
-        	String featureCount2 = trigramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);
+        	String featureCount1 = ngramGenerator(testLine) + trigramGenerator(testLine) + polarityList(testLine) + emojiGenerator(testLine);
             ps1.println(count + " " + featureCount1);
-            ps2.println(count + " " + featureCount2);
         	count ++;
         }
         testFile.close();

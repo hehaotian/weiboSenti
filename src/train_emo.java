@@ -6,7 +6,14 @@ public class train_emo {
 
     public static void main(String[] args) throws IOException {
 
-        BufferedReader startFile = new BufferedReader(new FileReader(args[0] + ".txt"));
+        String path = "";
+        if (args[1].equals("unlabel")) {
+            path = args[0] + ".txt";
+        } else {
+            path = args[0] + ".label.txt";
+        }
+
+        BufferedReader startFile = new BufferedReader(new FileReader(path));
         BufferedReader emojiFile = new BufferedReader(new FileReader("dataset/emoji.txt"));
 
         Map<String, String> emoji = new HashMap<String, String>();
@@ -27,7 +34,7 @@ public class train_emo {
         }
         emojiFile.close();
 
-        PrintStream ps = new PrintStream("emoed_test_unseg");
+        PrintStream ps = new PrintStream("test_unseg");
 
         String content = "";
 
